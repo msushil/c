@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int max;
+    printf("Enter the no. to obtain the no. of prime nos. required to get the sum of the given no. :-\t");
+    scanf("%d",&max);
+    int  prime[max];
+    int   i=0,  j=0,   k=0,  x=0;
+    int  rem=0;
+    int  flag=0;
+
+    //assigning 0s in the prime array.
+    for(x=0; x<=max; x++)
+    {
+        prime[x]=0;
+    }
+
+    x=0;
+    flag=0;
+
+    //creating prime array.
+    for(i=2; i<=max; i++)
+    {
+        flag=0;
+        for(j=2; j<=i/2; j++)
+        {
+            rem=i%j;
+            if(rem==0)
+            {
+                flag=1;
+                break;
+            }
+        }
+
+        while(flag==0)
+        {
+            prime[x++]=i;
+            flag++;
+        }
+    }
+
+
+    //printing prime nos.
+    printf("\nList of prime nos.=\n[");
+    for(j=0; j<=i; j++)
+    {
+        if(prime[j]==NULL)
+            break;
+        else
+            printf("%d  ",prime[j]);
+    }
+    printf("]");
+
+    //checking whether max is prime.
+    for(i=0; i<=max; i++)
+    {
+        if(prime[i]==max)
+        {
+            printf("\nNo. itself is prime, so ONE prime no. is required to find sum.\n");
+            flag=2;
+            break;
+        }
+
+        //checking whether sum can be found by using two prime nos.
+        else if (flag!=2)
+        {
+            for(j=0; j<=i; j++)
+            {
+                if(prime[j]+prime[i]==max)
+                {
+                    printf("\nSum = %d+ %d =>%d(given value)\n",prime[j],prime[i],max);
+                    printf("\nSum can be found using TWO prime nos.\n");
+                    flag=2;
+                    break;
+                }
+            }
+
+            //checking whether sum can be found by using two prime nos.
+            if (flag!=2)
+            {
+                for (k=0; k<=j; k++)
+                {
+                    if (prime[i]+prime[j]+prime[k]==max)
+                    {
+                        printf("\nSum = %d+ %d+ %d =>%d(given value)\n",prime[j],prime[i],prime[k],max);
+                        printf("\nSum can be found using THREE prime nos.\n");
+                        flag=2;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return 0;
+}
